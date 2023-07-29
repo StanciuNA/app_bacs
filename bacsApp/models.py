@@ -2,7 +2,6 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 
-
 class Utilisateur(models.Model):
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
 
@@ -15,7 +14,7 @@ class Site(models.Model):
     bac = models.ManyToManyField(Bac,through="Stock")
 
 class Documnet(models.Model):
-    url = models.CharField(max_length=255,null=True)
+    url = models.FileField(upload_to="")
 
 class Livraison(models.Model):
     site = models.ForeignKey(Site, on_delete = models.SET_NULL, null= True)
@@ -24,7 +23,6 @@ class Livraison(models.Model):
     utilisateur = models.ForeignKey(Utilisateur, on_delete = models.SET_NULL, null= True)
     livraison = models.ManyToManyField(Bac,through="Cargaison")
     document = models.ManyToManyField(Documnet)
-
 
 class Cargaison(models.Model):
     bac = models.ForeignKey(Bac,on_delete=models.SET_NULL, null=True)
@@ -36,6 +34,3 @@ class Stock(models.Model):
     quantite = models.PositiveIntegerField()
     site = models.ForeignKey(Site,on_delete=models.SET_NULL, null=True)
     bac = models.ForeignKey(Bac,on_delete=models.SET_NULL, null=True)
-
-
-    
