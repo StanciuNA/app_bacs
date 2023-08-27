@@ -1,0 +1,19 @@
+{% block head %}
+<div>
+    {% load static %}
+    <div class="container">
+        <div class="row" style="padding-top: 2%;padding-left: 2%;display: flex;">
+            <div class="col">
+                <a href="/" ><img src="{% static 'sp_home_logo.png' %}" class="img-fluid border rounded-3 mb-4" alt="Example image" loading="lazy" width="200px" height="200px"></a>
+            </div>
+            <div class="col" style="min-width:70%">
+            </div>
+            {% if user.is_authenticated %}
+            <div class="col">
+                <a href="/logout"> <button type="button" class="btn btn-primary" style="min-height: 60px; min-width: 60px;">Déconnection</button> </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

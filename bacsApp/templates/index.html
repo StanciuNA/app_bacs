@@ -8,7 +8,12 @@
           {% load static %}
           <img src="{% static 'supergel_logo.png' %}" class="img-fluid border rounded-3 mb-4" alt="Example image" loading="lazy" width="700" height="500">
         </div>
-        <button type="button" class="btn btn-primary" style="min-height: 60px; min-width: 60px;">Se connecter</button>
+        {% if user.is_authenticated %}
+        <a href="/logout"> <button type="button" class="btn btn-primary" style="min-height: 60px; min-width: 60px;">Se déconnecter</button> </a>
+        {% else %}
+        <a href="/login"> <button type="button" class="btn btn-primary" style="min-height: 60px; min-width: 60px;">Se connecter</button> </a>
+        {% endif %}
+
       </div>
     </div>
 </body>
