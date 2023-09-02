@@ -47,10 +47,9 @@ class Cargaison(models.Model):
     livraison = models.ForeignKey(Livraison,on_delete=models.SET_NULL, null=True)
     quantite = models.PositiveIntegerField()
     objects = models.Manager()
-    
 
 class Stock(models.Model):
-    quantite = models.PositiveIntegerField()
+    quantite = models.PositiveIntegerField(default=0)
     site = models.ForeignKey(Site,on_delete=models.SET_NULL, null=True)
     bac = models.ForeignKey(Bac,on_delete=models.SET_NULL, null=True)
     objects = models.Manager()
