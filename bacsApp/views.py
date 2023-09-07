@@ -3,9 +3,9 @@ from django.contrib.auth import authenticate, login as auth_login,logout as auth
 from django.template import loader
 from django.shortcuts import render, redirect
 from .models import *
+from django.shortcuts import redirect
 
 def index(request):
-
     return render(request,"index.html")
 
 
@@ -28,6 +28,8 @@ def formulaire(request):
         fournisseur = Site.objects.get(id = 1)
         stockFournB1 = Stock.objects.get(site = fournisseur, bac=bacs[0])
         stockFournB2 = Stock.objects.get(site = fournisseur, bac=bacs[1])
+        Cargaison.objects.create(livraison = livraison,bac = bacs[0],quantite = int(request.POST["Bac1"]))
+        Cargaison.objects.create(livraison = livraison,bac = bacs[1],quantite = int(request.POST["Bac2"]))
         if retour == "on":
             stockFournB1.quantite = stockFournB1.quantite + int(request.POST["Bac1"])
             stockFournB1.save()
@@ -61,7 +63,24 @@ def login(request):
     return render(request,"login.html")
 
 def logout(request):
-    user = auth_logout(request)
+    auth_logout(request)
+    return redirect("/")
 
-    return render(request,"index.html")
+
+def liste(request):
+    user = request.user
+    if(user.is_anonymous):
+        print(request.user)
+        return redirect("/login")
+    else:
+        if user.groups.filter(name='Responsables').exists(): 
+            livraisons = Livraison.objects.all()
+            for object in livraisons:
+                object = object.cargaison_set.all()
+                for a in object:
+                    print(a.quantite)
+
+        else:
+            livraisons = Livraison.objects.filter(utilisateur=user)            
+    return render(request,"liste.html",{"livraisons":livraisons})
 

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "header.html" %}
+    <div class="row" style="display:flexbox;padding-left:5%;padding-right:6%;">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Destinataire</th>
+                <th scope="col">Chauffeur</th>
+                <th scope="col">Quantité Bac type 1</th>
+                <th scope="col">Quantité Bac type 2</th>
+            </tr>
+            </thead>
+            
+        {% for livraison in livraisons %}
+            <tbody>
+                <tr>
+                    <td>{{livraison.date}}</td>
+                    <td>{{livraison.site}}</td>
+                    <td>{{livraison.utilisateur}}</td>
+                {% for cargaison in livraison.cargaison_set.all %}
+                    <td>{{cargaison.quantite}}</td>
+                {% endfor %}
+                    <td><a href="#"><button type="button" class="btn btn-warning btn-sm">Editer</button></a></td>
+                    <td><a href="#"><button type="button" class="btn btn-danger btn-sm">Effacer</button></a></td>
+                </tr>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}

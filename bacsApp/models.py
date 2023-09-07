@@ -47,6 +47,10 @@ class Cargaison(models.Model):
     livraison = models.ForeignKey(Livraison,on_delete=models.SET_NULL, null=True)
     quantite = models.PositiveIntegerField()
     objects = models.Manager()
+    
+    def __str__(self):
+        return self.quantite
+
 
 class Stock(models.Model):
     quantite = models.PositiveIntegerField(default=0)

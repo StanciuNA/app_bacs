@@ -10,10 +10,16 @@
         </div>
         {% if user.is_authenticated %}
         <a href="/logout"> <button type="button" class="btn btn-primary" style="min-height: 60px; min-width: 60px;">Se déconnecter</button> </a>
+          {% if perms.bacsApp.change_stock %}
+          <a href="/liste"><button type="button" class="btn btn-info" style="min-height: 60px; min-width: 60px;">Liste des livraisons</button></a>  
+          {% endif %}
+
+        <a href="/formulaire"><button type="button" class="btn btn-warning" style="min-height: 60px; min-width: 60px;">Ajouter une livraison</button></a>
+        <a href="#"><button type="button" class="btn btn-success" style="min-height: 60px; min-width: 60px;">Statistiques</button></a>
+        {# <h1>{{perms.app_name}}</h1> #}
         {% else %}
         <a href="/login"> <button type="button" class="btn btn-primary" style="min-height: 60px; min-width: 60px;">Se connecter</button> </a>
         {% endif %}
-
       </div>
     </div>
 </body>
